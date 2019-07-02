@@ -13,7 +13,7 @@ import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import net.pt.demo.newsapp.model.NewsArticle;
+import net.pt.demo.newsapp.model.Article;
 
 public class NewsDetailsActivity extends AppCompatActivity {
     public static final String KEY_INDEX = "news_article_index";
@@ -39,7 +39,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
     }
 
     public void updateNewsDetails(int index) {
-        NewsArticle newsArticle = NewsStore.getNewsArticles().get(index);
+        Article newsArticle = NewsStore.getNewsArticles().get(index);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -58,7 +58,7 @@ public class NewsDetailsActivity extends AppCompatActivity {
                 Toast.makeText(NewsDetailsActivity.this, "Error in loading web page", Toast.LENGTH_LONG).show();
             }
         });
-        webView.loadUrl(newsArticle.getUrlToArticle());
+        webView.loadUrl(newsArticle.getUrl());
         getSupportActionBar().setTitle(newsArticle.getTitle());
     }
 

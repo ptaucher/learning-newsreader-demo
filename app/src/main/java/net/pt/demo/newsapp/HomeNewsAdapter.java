@@ -11,14 +11,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import net.pt.demo.newsapp.model.NewsArticle;
+import net.pt.demo.newsapp.model.Article;
+import net.pt.demo.newsapp.util.DateUtils;
 
 import java.util.List;
 
 public class HomeNewsAdapter extends RecyclerView.Adapter<HomeNewsAdapter.HomeNewsViewHolder> {
-    List<NewsArticle> newsArticles;
+    List<Article> newsArticles;
 
-    public HomeNewsAdapter(List<NewsArticle> newsArticles) {
+    public HomeNewsAdapter(List<Article> newsArticles) {
         this.newsArticles = newsArticles;
     }
 
@@ -32,15 +33,15 @@ public class HomeNewsAdapter extends RecyclerView.Adapter<HomeNewsAdapter.HomeNe
 
     @Override
     public void onBindViewHolder(@NonNull HomeNewsViewHolder holder, final int position) {
-        NewsArticle newsArticle = newsArticles.get(position);
+        Article newsArticle = newsArticles.get(position);
         Glide.with(holder.getCardNewsImage().getContext())
                 .load(newsArticle.getUrlToImage())
                 .centerCrop()
                 .into(holder.getCardNewsImage());
         Log.i(getClass().getSimpleName(), "imageView: " + newsArticle.getUrlToImage());
         holder.getCardNewsTitle().setText(newsArticle.getTitle());
-        holder.getCardNewsTime().setText(newsArticle.getTime());
-        holder.getCardNewsContent().setText(newsArticle.getDetails());
+        holder.getCardNewsTime().setText(DateUtils.formatNewsApiDate(newsArticle.getPublishedAt()));
+        holder.getCardNewsContent().setText(newsArticle.getDescription());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
