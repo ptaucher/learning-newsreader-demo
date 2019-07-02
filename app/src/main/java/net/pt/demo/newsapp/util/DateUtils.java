@@ -1,5 +1,7 @@
 package net.pt.demo.newsapp.util;
 
+import com.google.firebase.crash.FirebaseCrash;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,6 +14,7 @@ public class DateUtils {
         try {
             return outputDateFormat.format(inputDateFormat.parse(inputDate));
         } catch (ParseException ex) {
+            FirebaseCrash.report(ex);
             return inputDate;
         }
     }
